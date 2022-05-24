@@ -84,6 +84,9 @@ elif args.loadckpt:
     model.load_state_dict(state_dict['model'])
 print("Start at epoch {}".format(start_epoch))
 
+# helper function in colab / jupyter
+def rprint(s):
+  print("\r" + str(s), end="")
 
 def train():
     best_checkpoint_loss = 100
@@ -100,7 +103,7 @@ def train():
                 save_scalars(logger, 'train', scalar_outputs, global_step)
                 save_images(logger, 'train', image_outputs, global_step)
             del scalar_outputs, image_outputs
-            print('Epoch {}/{}, Iter {}/{}, train loss = {:.3f}, time = {:.3f}'.format(epoch_idx, args.epochs,
+            rprint('Epoch {}/{}, Iter {}/{}, train loss = {:.3f}, time = {:.3f}'.format(epoch_idx, args.epochs,
                                                                                        batch_idx,
                                                                                        len(TrainImgLoader), loss,
                                                                                        time.time() - start_time))
@@ -122,7 +125,7 @@ def train():
                 save_images(logger, 'test', image_outputs, global_step)
             avg_test_scalars.update(scalar_outputs)
             del scalar_outputs, image_outputs
-            print('Epoch {}/{}, Iter {}/{}, test loss = {:.3f}, time = {:3f}'.format(epoch_idx, args.epochs,
+            rprint('Epoch {}/{}, Iter {}/{}, test loss = {:.3f}, time = {:3f}'.format(epoch_idx, args.epochs,
                                                                                      batch_idx,
                                                                                      len(TestImgLoader), loss,
                                                                                      time.time() - start_time))
