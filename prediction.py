@@ -61,7 +61,7 @@ def test(args):
             name = fn.split('/')
             fn = os.path.join("predictions", '_'.join(name[2:]))
 
-            if float(args.colored) == 1:
+            if bool(args.colored) == 1:
                 disp_est = kitti_colormap(disp_est)
                 cv2.imwrite(fn, disp_est)
             else:
